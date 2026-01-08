@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RuachEon • Professional Video Editing & Motion Graphics</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23333%22/><text y=%22.9em%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2290%22 fill=%22%23fff%22>RE</text></svg>">
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {font-family:system-ui,sans-serif;color:#333;background:#fff;line-height:1.7;}
+    
+    /* Header */
+    header {position:fixed;top:0;left:0;right:0;padding:1rem 5%;background:rgba(255,255,255,0.98);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;z-index:1000;border-bottom:1px solid #eee;}
+    .logo {font-size:2.2rem;font-weight:800;color:#333;}
+    .nav-links {display:flex;gap:1.8rem;align-items:center;}
+    .nav-links a {color:#333;text-decoration:none;font-size:1rem;font-weight:600;transition:0.3s;}
+    .nav-links a:hover {color:#007bff;}
+    .hamburger {display:none;flex-direction:column;gap:5px;cursor:pointer;}
+    .hamburger span {width:28px;height:3px;background:#333;border-radius:2px;transition:all 0.3s;}
+    .hamburger.active span:nth-child(1) {transform:rotate(45deg) translate(5px,5px);}
+    .hamburger.active span:nth-child(2) {opacity:0;}
+    .hamburger.active span:nth-child(3) {transform:rotate(-45deg) translate(6px,-6px);}
+
+    /* Hero */
+    .hero {padding:160px 5% 100px;text-align:center;background:linear-gradient(rgba(0,123,255,0.08),rgba(0,123,255,0.25)),url('https://images.unsplash.com/photo-1544194215-4557c4d9db4f?w=1600') center/cover;}
+    .hero h1 {font-size:clamp(3.2rem,10vw,6.5rem);color:#007bff;margin-bottom:1rem;font-weight:800;line-height:1.1;}
+    .hero p {font-size:clamp(1.1rem,5vw,1.5rem);max-width:800px;margin:0 auto 2rem;color:#444;}
+    .btn {padding:0.9rem 2.2rem;background:#007bff;color:#fff;border:none;border-radius:8px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:0.3s;}
+    .btn:hover {background:#0056b3;}
+
+    /* Trust / Testimonials */
+    .trust {padding:5rem 5%;background:#f8f9fa;text-align:center;}
+    .trust h2 {font-size:clamp(2.2rem,6vw,3rem);margin-bottom:2.5rem;color:#333;}
+    .testimonials {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:1400px;margin:0 auto;}
+    .testimonial {background:#fff;padding:1.8rem;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);text-align:left;}
+    .testimonial p {font-size:1.1rem;margin-bottom:1rem;color:#555;}
+    .testimonial cite {color:#007bff;font-style:normal;font-weight:600;}
+
+    /* Portfolio */
+    .portfolio {padding:5rem 5%;background:#fff;}
+    .portfolio h2 {font-size:clamp(2.2rem,6vw,3rem);text-align:center;color:#333;margin-bottom:3rem;}
+    .portfolio-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2.5rem;}
+    .portfolio-item {text-align:center;transition:0.3s;}
+    .portfolio-item:hover {transform:translateY(-8px);}
+    .portfolio-item img {width:100%;height:200px;object-fit:cover;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.12);margin-bottom:1rem;}
+    .portfolio-item h3 {font-size:1.5rem;color:#007bff;margin-bottom:0.5rem;}
+    .portfolio-item p {font-size:1rem;color:#666;}
+
+    /* Pricing */
+    .pricing {padding:5rem 5%;background:#f8f9fa;}
+    .pricing h2 {font-size:clamp(2.2rem,6vw,3rem);text-align:center;color:#333;margin-bottom:3rem;}
+    .pricing-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem;}
+    .price-card {background:#fff;border-radius:12px;box-shadow:0 6px 25px rgba(0,0,0,0.08);overflow:hidden;text-align:center;transition:0.3s;}
+    .price-card:hover {transform:translateY(-10px);box-shadow:0 12px 40px rgba(0,0,0,0.12);}
+    .price-card .header {background:#007bff;color:#fff;padding:1.8rem;}
+    .price-card .header h3 {font-size:1.8rem;margin-bottom:0.5rem;}
+    .price-card .price {font-size:2.8rem;font-weight:800;color:#333;padding:1.2rem 0;}
+    .price-card ul {list-style:none;padding:1.5rem 1.2rem;text-align:left;}
+    .price-card ul li {margin:0.9rem 0;font-size:1rem;color:#555;}
+    .price-card .btn {margin:1.5rem 0;display:block;padding:0.9rem 2rem;}
+
+    /* Contact */
+    .contact {padding:5rem 5%;background:#fff;}
+    .contact h2 {font-size:clamp(2.2rem,6vw,3rem);text-align:center;color:#333;margin-bottom:3rem;}
+    .contact-form {max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:1.4rem;}
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {padding:1rem 1.5rem;font-size:1.1rem;border:1px solid #ccc;border-radius:8px;outline:none;transition:0.3s;}
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,0.2);}
+    .contact-form button {padding:1.2rem;background:#007bff;color:#fff;border:none;border-radius:8px;font-size:1.2rem;font-weight:600;cursor:pointer;transition:0.3s;}
+    .contact-form button:hover {background:#0056b3;}
+
+    /* CTA & Footer */
+    .cta-final {padding:6rem 5%;text-align:center;background:linear-gradient(rgba(0,123,255,0.9),rgba(0,123,255,1));color:#fff;}
+    .cta-final h2 {font-size:clamp(2.5rem,7vw,4rem);margin-bottom:2rem;}
+    footer {text-align:center;padding:3rem 5%;background:#333;color:#fff;font-size:1rem;}
+    footer a {color:#00bfff;text-decoration:none;}
+
+    /* Responsive */
+    @media (max-width:992px) {
+      .portfolio-grid, .pricing-grid, .testimonials {gap:2rem;}
+    }
+    @media (max-width:768px) {
+      header {padding:1rem 5%;}
+      .nav-links {display:none;}
+      .nav-links.active {display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#fff;padding:1.5rem 5%;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+      .hamburger {display:flex;}
+      .hero {padding:140px 5% 80px;}
+      .hero h1 {font-size:3.8rem;}
+      .hero p {font-size:1.3rem;}
+      .btn {padding:0.9rem 2rem;font-size:1.1rem;}
+      section {padding:4rem 5%;}
+    }
+    @media (max-width:480px) {
+      .hero h1 {font-size:3rem;}
+      .portfolio-item img {height:180px;}
+      .price-card .price {font-size:2.2rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">RUACHEON</div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Services</a>
+      <a href="#" class="btn">Get a Quote</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Bring Your Vision to Life</h1>
+      <p>Professional video editing, motion graphics, logo reveals, birthday videos, commercials, and cinematic storytelling — crafted with precision and creativity</p>
+      <a href="#" class="btn">Start Your Project</a>
+    </div>
+  </section>
+
+  <section class="trust">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>"RuachEon turned our raw footage into a masterpiece. The motion graphics are next level!"</p>
+        <cite>— Sarah, Brand Manager</cite>
+      </div>
+      <div class="testimonial">
+        <p>"Our logo reveal is now the highlight of every video. Professional and fast delivery."</p>
+        <cite>— Mike, YouTuber</cite>
+      </div>
+      <div class="testimonial">
+        <p>"The birthday video was emotional and perfect. Everyone cried happy tears!"</p>
+        <cite>— Lisa, Client</cite>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio">
+    <h2>Our Work – Selected Projects</h2>
+    <div class="portfolio-grid">
+      <!-- Video Editing -->
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+          <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Commercial Video Editing">
+        </a>
+        <h3>Commercial Video Editing</h3>
+        <p>Cinematic cuts & storytelling</p>
+      </div>
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=3tmd-ClpJxA" target="_blank">
+          <img src="https://i.ytimg.com/vi/3tmd-ClpJxA/maxresdefault.jpg" alt="Product Promo Editing">
+        </a>
+        <h3>Product Promo Editing</h3>
+        <p>Brand-focused visuals & transitions</p>
+      </div>
+
+      <!-- Motion Graphics -->
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=2Vv-BfVoq4g" target="_blank">
+          <img src="https://i.ytimg.com/vi/2Vv-BfVoq4g/maxresdefault.jpg" alt="Motion Graphics Demo">
+        </a>
+        <h3>Motion Graphics</h3>
+        <p>Dynamic effects & animation</p>
+      </div>
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=kXY8i5xY9vI" target="_blank">
+          <img src="https://i.ytimg.com/vi/kXY8i5xY9vI/maxresdefault.jpg" alt="Explainer Motion">
+        </a>
+        <h3>Explainer Video</h3>
+        <p>Animated brand storytelling</p>
+      </div>
+
+      <!-- Logo Reveal -->
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=5qap5aO4i9A" target="_blank">
+          <img src="https://i.ytimg.com/vi/5qap5aO4i9A/maxresdefault.jpg" alt="Cinematic Logo Reveal">
+        </a>
+        <h3>Cinematic Logo Reveal</h3>
+        <p>3D animated intro</p>
+      </div>
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=y6120QOlsfU" target="_blank">
+          <img src="https://i.ytimg.com/vi/y6120QOlsfU/maxresdefault.jpg" alt="Minimal Logo Reveal">
+        </a>
+        <h3>Minimal Logo Reveal</h3>
+        <p>Clean & elegant animation</p>
+      </div>
+
+      <!-- Birthday Videos -->
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=7NOO3iR1tE8" target="_blank">
+          <img src="https://i.ytimg.com/vi/7NOO3iR1tE8/maxresdefault.jpg" alt="Birthday Montage">
+        </a>
+        <h3>Birthday Montage</h3>
+        <p>Emotional tribute video</p>
+      </div>
+      <div class="portfolio-item">
+        <a href="https://www.youtube.com/watch?v=9bZkp7q19f0" target="_blank">
+          <img src="https://i.ytimg.com/vi/9bZkp7q19f0/maxresdefault.jpg" alt="Personalized Birthday">
+        </a>
+        <h3>Personalized Birthday</h3>
+        <p>Custom effects & music sync</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <h2>Transparent Pricing</h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="header">
+          <h3>Basic Edit</h3>
+        </div>
+        <div class="price">$150</div>
+        <ul>
+          <li>Up to 3 minutes</li>
+          <li>Basic cuts & transitions</li>
+          <li>Color correction</li>
+          <li>1 round of revisions</li>
+          <li>5–7 days delivery</li>
+        </ul>
+        <a href="#" class="btn">Choose Basic</a>
+      </div>
+
+      <div class="price-card">
+        <div class="header" style="background:#0056b3;">
+          <h3>Standard Package</h3>
+        </div>
+        <div class="price">$350</div>
+        <ul>
+          <li>Up to 8 minutes</li>
+          <li>Advanced editing & pacing</li>
+          <li>Full color grading</li>
+          <li>Motion graphics elements</li>
+          <li>2 rounds of revisions</li>
+          <li>7–10 days delivery</li>
+        </ul>
+        <a href="#" class="btn">Choose Standard</a>
+      </div>
+
+      <div class="price-card">
+        <div class="header" style="background:#003d82;">
+          <h3>Premium Package</h3>
+        </div>
+        <div class="price">$750</div>
+        <ul>
+          <li>Up to 15 minutes</li>
+          <li>Premium editing & storytelling</li>
+          <li>Custom motion graphics</li>
+          <li>Logo reveal + intro/outro</li>
+          <li>Unlimited revisions</li>
+          <li>10–14 days delivery</li>
+        </ul>
+        <a href="#" class="btn">Choose Premium</a>
+      </div>
+
+      <div class="price-card">
+        <div class="header">
+          <h3>Custom Project</h3>
+        </div>
+        <div class="price">Quote</div>
+        <ul>
+          <li>Any length & complexity</li>
+          <li>Full cinematic treatment</li>
+          <li>Advanced VFX & animation</li>
+          <li>Birthday/event montages</li>
+          <li>Priority support</li>
+          <li>Fast-track delivery available</li>
+        </ul>
+        <a href="#" class="btn">Get Custom Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Get in Touch – Start Your Project Today</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Phone Number (optional)">
+      <select required>
+        <option value="" disabled selected>Select Project Type</option>
+        <option value="video-editing">Video Editing</option>
+        <option value="motion-graphics">Motion Graphics</option>
+        <option value="logo-reveal">Logo Reveal / Intro</option>
+        <option value="birthday-video">Birthday / Event Video</option>
+        <option value="other">Other (please describe below)</option>
+      </select>
+      <textarea placeholder="Tell us about your project (duration, style, deadline, etc.)..." rows="6" required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+    <p style="text-align:center;margin-top:2rem;font-size:1.2rem;">Or email us directly: <strong>ruacheonn@gmail.com</strong></p>
+  </section>
+
+  <section class="cta-final">
+    <h2>Ready to Create Something Amazing?</h2>
+    <a href="#" class="btn">Get Your Free Quote Today</a>
+  </section>
+
+  <footer>
+    <p>© 2026 RuachEon • Professional Video Editing & Motion Graphics</p>
+    <p>Contact: ruacheonn@gmail.com</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (hamburger) {
+        hamburger.addEventListener('click', () => {
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('active');
+        });
+      }
+
+      // Close menu when clicking a link (optional improvement)
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger?.classList.remove('active');
+          navLinks?.classList.remove('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
